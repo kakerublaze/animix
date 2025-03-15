@@ -4,6 +4,5 @@ export 'package:get/get.dart'; // State Management Used
 export 'package:google_fonts/google_fonts.dart'; // Google Fonts for better fonts
 export 'package:logger/logger.dart'; // Logger
 export 'package:shimmer/shimmer.dart'; // For Shimmer Effect
-
-// export 'package:carousel_slider/carousel_slider.dart'; // Carousel Slider
+export 'package:carousel_slider/carousel_slider.dart'; // Carousel Slider
 // export 'package:youtube_player_flutter/youtube_player_flutter.dart'; // Youtube Embbed Player

@@ -15,4 +15,7 @@ class AppColors {
     stops: const [0.3, 0.7],
     colors: [appSecondaryColor, appSecondaryDarkColor],
   );
+  static Color appDarkBasedTextColor = Colors.white;
+  static Color appLightBasedTextColor = Colors.black;
+  static Color seeAllTextColor = Colors.blue;
 }
