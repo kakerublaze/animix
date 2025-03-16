@@ -7,6 +7,10 @@ class ServiceConfiguration {
   static String imageBaseUrl = dotenv.env['imageUrl'] ?? '';
   // --> Airing Schedule API's
   static const String getAiringAnimeSchedule = 'meta/anilist/airing-schedule';
+  // --> Popular Anime API's
+  static const String getPopularAnime = 'meta/anilist/popular';
+  // --> Trending Anime API's
+  static const String getTrendingAnime = 'meta/anilist/trending';
   // --> Recent Anime Episode API's
   static const String getAnimeRecentEpisodes = 'meta/anilist/recent-episodes';
   // --> Anime Details Data API's
@@ -61,7 +65,6 @@ class ServiceConfiguration {
   // --> Trending Series Weekly
   static const String getTrendingTVShowsListWeekly =
       '3/trending/tv/week'; //{time_window}' day/ week
-  
   // --> Popular Series
   static const String getPopularTVShowsList = '3/tv/popular';
   // --> Top Rated Series

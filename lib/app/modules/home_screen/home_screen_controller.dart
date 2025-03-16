@@ -4,12 +4,14 @@ import 'package:anidex/app/core/utils/exports.dart';
 import 'package:anidex/app/core/utils/global_variables.dart';
 import 'package:anidex/app/core/utils/service_configuration.dart';
 import 'package:anidex/app/data/enums/service_enums.dart';
+import 'package:anidex/app/data/models/get_popular_anime_response_model.dart';
 import 'package:anidex/app/data/models/get_popular_celebs_response_model.dart';
 import 'package:anidex/app/data/models/get_popular_movies_response_model.dart';
 import 'package:anidex/app/data/models/get_popular_tv_shows_response_model.dart';
 import 'package:anidex/app/data/models/get_slider_data_response_model.dart';
 import 'package:anidex/app/data/models/get_top_rated_movies_response_model.dart';
 import 'package:anidex/app/data/models/get_top_rated_tv_shows_response_model.dart';
+import 'package:anidex/app/data/models/get_trending_anime_response_model.dart';
 import 'package:anidex/app/data/models/get_trending_celebs_response_model.dart';
 import 'package:anidex/app/data/models/get_trending_movies_response_model.dart';
 import 'package:anidex/app/data/models/get_trending_tv_shows_response_model.dart';
@@ -39,6 +41,12 @@ class HomeScreenController extends GetxController {
   Rx<GetTopRatedTVShowsResponseModel> getTopRatedTVShowsResponseModel =
       GetTopRatedTVShowsResponseModel().obs;
 
+  // Anime
+  Rx<GetPopularAnimeResponseModel> getPopularAnimeResponseModel =
+      GetPopularAnimeResponseModel().obs;
+  Rx<GetTrendingAnimeResponseModel> getTrendingAnimeResponseModel =
+      GetTrendingAnimeResponseModel().obs;
+
   RxList<SliderData> sliderDataList = <SliderData>[].obs;
   // Popular List
   RxList<PopularMovies> popularMoviesList = <PopularMovies>[].obs;
@@ -51,6 +59,9 @@ class HomeScreenController extends GetxController {
   // Top Rated List
   RxList<TopRatedMovies> topRatedMoviesList = <TopRatedMovies>[].obs;
   RxList<TopRatedTVShows> topRatedTVShowsList = <TopRatedTVShows>[].obs;
+  // Anime List
+  RxList<PopularAnimeData> popularAnimeDataList = <PopularAnimeData>[].obs;
+  RxList<TrendingAnime> trendingAnimeDataList = <TrendingAnime>[].obs;
 
   @override
   Future<void> onInit() async {
@@ -64,6 +75,8 @@ class HomeScreenController extends GetxController {
     await getTrendingCelebs();
     await getTopRatedMovies();
     await getTopRatedTVShows();
+    await getPopularAnimes();
+    await getTrendingAnimes();
     super.onInit();
   }
 
@@ -242,6 +255,44 @@ class HomeScreenController extends GetxController {
                 GetTopRatedMoviesResponseModel.fromJson(json.decode(response));
             topRatedMoviesList.addAll(
               getTopRatedMoviesResponseModel.value.topRatedMovies ?? [],
+            );
+          }
+        });
+  }
+
+  // Get Popular Animes
+  Future<void> getPopularAnimes() async {
+    await restServices
+        .getResponse(
+          uri: ServiceConfiguration.getPopularAnime,
+          method: Method.get,
+          token: apiToken,
+        )
+        .then((response) {
+          if (response != '') {
+            getPopularAnimeResponseModel.value =
+                GetPopularAnimeResponseModel.fromJson(json.decode(response));
+            popularAnimeDataList.addAll(
+              getPopularAnimeResponseModel.value.popularAnimeDataList ?? [],
+            );
+          }
+        });
+  }
+
+  // Get Trending Animes
+  Future<void> getTrendingAnimes() async {
+    await restServices
+        .getResponse(
+          uri: ServiceConfiguration.getTrendingAnime,
+          method: Method.get,
+          token: apiToken,
+        )
+        .then((response) {
+          if (response != '') {
+            getTrendingAnimeResponseModel.value =
+                GetTrendingAnimeResponseModel.fromJson(json.decode(response));
+            trendingAnimeDataList.addAll(
+              getTrendingAnimeResponseModel.value.trendingAnimes ?? [],
             );
           }
         });

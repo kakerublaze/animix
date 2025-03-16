@@ -497,6 +497,118 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
             ),
+            // Trending Animes
+            30.heightBox,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Trending Animes',
+                  style: TextStyle(
+                    color: AppColors.appDarkBasedTextColor,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  'See All',
+                  style: TextStyle(
+                    color: AppColors.seeAllTextColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ).paddingOnly(left: 15, right: 15),
+            SizedBox(
+              height: 310,
+              child: ListView.builder(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(top: 20, bottom: 10),
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.trendingAnimeDataList.length,
+                itemBuilder: (context, index) {
+                  var movieData = controller.trendingAnimeDataList[index];
+                  return Container(
+                    width: 200,
+                    height: 250,
+                    margin: EdgeInsets.only(
+                      right: 10,
+                      left: index == 0 ? 20 : 10,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        movieData.image ?? '',
+                        width: 200,
+                        height: 250,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            // Popular Anime
+            30.heightBox,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Popular Animes',
+                  style: TextStyle(
+                    color: AppColors.appDarkBasedTextColor,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  'See All',
+                  style: TextStyle(
+                    color: AppColors.seeAllTextColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ).paddingOnly(left: 15, right: 15),
+            SizedBox(
+              height: 310,
+              child: ListView.builder(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(top: 20, bottom: 10),
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.popularAnimeDataList.length,
+                itemBuilder: (context, index) {
+                  var movieData = controller.popularAnimeDataList[index];
+                  return Container(
+                    width: 200,
+                    height: 250,
+                    margin: EdgeInsets.only(
+                      right: 10,
+                      left: index == 0 ? 20 : 10,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        movieData.image ?? '',
+                        width: 200,
+                        height: 250,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       );
