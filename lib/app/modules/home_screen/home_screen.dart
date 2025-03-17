@@ -609,6 +609,62 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
             ),
+            // AV Videos
+            30.heightBox,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Popular AV\'s',
+                  style: TextStyle(
+                    color: AppColors.appDarkBasedTextColor,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  'See All',
+                  style: TextStyle(
+                    color: AppColors.seeAllTextColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ).paddingOnly(left: 15, right: 15),
+            SizedBox(
+              height: 310,
+              child: ListView.builder(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(top: 20, bottom: 10),
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.avVidsList.length,
+                itemBuilder: (context, index) {
+                  var movieData = controller.avVidsList[index];
+                  return Container(
+                    width: 200,
+                    height: 250,
+                    margin: EdgeInsets.only(
+                      right: 10,
+                      left: index == 0 ? 20 : 10,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        movieData.defaultThumb?.src ?? '',
+                        width: 200,
+                        height: 250,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       );

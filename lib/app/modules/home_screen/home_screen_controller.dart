@@ -5,6 +5,7 @@ import 'package:anidex/app/core/utils/global_variables.dart';
 import 'package:anidex/app/core/utils/service_configuration.dart';
 import 'package:anidex/app/data/enums/service_enums.dart';
 import 'package:anidex/app/data/models/get_popular_anime_response_model.dart';
+import 'package:anidex/app/data/models/get_popular_av_vids_response_model.dart';
 import 'package:anidex/app/data/models/get_popular_celebs_response_model.dart';
 import 'package:anidex/app/data/models/get_popular_movies_response_model.dart';
 import 'package:anidex/app/data/models/get_popular_tv_shows_response_model.dart';
@@ -47,6 +48,10 @@ class HomeScreenController extends GetxController {
   Rx<GetTrendingAnimeResponseModel> getTrendingAnimeResponseModel =
       GetTrendingAnimeResponseModel().obs;
 
+  // AV Videos
+  Rx<GetPopularAVVidsResponseModel> getPopularAVVidsResponseModel =
+      GetPopularAVVidsResponseModel().obs;
+
   RxList<SliderData> sliderDataList = <SliderData>[].obs;
   // Popular List
   RxList<PopularMovies> popularMoviesList = <PopularMovies>[].obs;
@@ -62,21 +67,24 @@ class HomeScreenController extends GetxController {
   // Anime List
   RxList<PopularAnimeData> popularAnimeDataList = <PopularAnimeData>[].obs;
   RxList<TrendingAnime> trendingAnimeDataList = <TrendingAnime>[].obs;
+  // AV Vids List
+  RxList<AVVids> avVidsList = <AVVids>[].obs;
 
   @override
   Future<void> onInit() async {
     sliderDataList.value = [];
-    await getSliderData();
-    await getPopularMovies();
-    await getPopularTVShows();
-    await getPopularCelebs();
-    await getTrendingMovies();
-    await getTrendingTVShows();
-    await getTrendingCelebs();
-    await getTopRatedMovies();
-    await getTopRatedTVShows();
-    await getPopularAnimes();
-    await getTrendingAnimes();
+    // await getSliderData();
+    // await getPopularMovies();
+    // await getPopularTVShows();
+    // await getPopularCelebs();
+    // await getTrendingMovies();
+    // await getTrendingTVShows();
+    // await getTrendingCelebs();
+    // await getTopRatedMovies();
+    // await getTopRatedTVShows();
+    // await getPopularAnimes();
+    // await getTrendingAnimes();
+    await getPopularAV();
     super.onInit();
   }
 
@@ -294,6 +302,34 @@ class HomeScreenController extends GetxController {
             trendingAnimeDataList.addAll(
               getTrendingAnimeResponseModel.value.trendingAnimes ?? [],
             );
+          }
+        });
+  }
+
+  // Get Popular AV's
+  Future<void> getPopularAV() async {
+    await restServices
+        .getResponse(
+          isAV: true,
+          uri: ServiceConfiguration.searchAVVideos,
+          method: Method.get,
+          queryParameters: {
+            'query': 'all',
+            'order': 'most-popular',
+            'page': 1,
+            'per_page': 20,
+            'thumbsize': 'big',
+            'gay': 0,
+            'lq': 1,
+            'format': 'json',
+          },
+          // token: apiToken,
+        )
+        .then((response) {
+          if (response != '') {
+            getPopularAVVidsResponseModel.value =
+                GetPopularAVVidsResponseModel.fromJson(json.decode(response));
+            avVidsList.addAll(getPopularAVVidsResponseModel.value.avVids ?? []);
           }
         });
   }

@@ -5,6 +5,7 @@ class ServiceConfiguration {
   static String baseUrl = dotenv.env['baseUrl'] ?? '';
   static String moviesBaseUrl = dotenv.env['movieUrl'] ?? '';
   static String imageBaseUrl = dotenv.env['imageUrl'] ?? '';
+  static String avBaseURL = dotenv.env['avBaseURL'] ?? '';
   // --> Airing Schedule API's
   static const String getAiringAnimeSchedule = 'meta/anilist/airing-schedule';
   // --> Popular Anime API's
@@ -69,4 +70,6 @@ class ServiceConfiguration {
   static const String getPopularTVShowsList = '3/tv/popular';
   // --> Top Rated Series
   static const String getTopRatedTVShowsList = '3/tv/top_rated';
+  // --> Search AV Videos
+  static const String searchAVVideos = 'api/v2/video/search';
 }

@@ -15,17 +15,17 @@ class GetPopularAnimeResponseModel {
     if (json['results'] != null) {
       popularAnimeDataList = <PopularAnimeData>[];
       json['results'].forEach((v) {
-        popularAnimeDataList!.add(new PopularAnimeData.fromJson(v));
+        popularAnimeDataList!.add(PopularAnimeData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['currentPage'] = this.currentPage;
-    data['hasNextPage'] = this.hasNextPage;
-    if (this.popularAnimeDataList != null) {
-      data['results'] = this.popularAnimeDataList!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['currentPage'] = currentPage;
+    data['hasNextPage'] = hasNextPage;
+    if (popularAnimeDataList != null) {
+      data['results'] = popularAnimeDataList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -73,11 +73,11 @@ class PopularAnimeData {
   PopularAnimeData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     malId = json['malId'];
-    title = json['title'] != null ? new Title.fromJson(json['title']) : null;
+    title = json['title'] != null ? Title.fromJson(json['title']) : null;
     image = json['image'];
     imageHash = json['imageHash'];
     trailer =
-        json['trailer'] != null ? new Trailer.fromJson(json['trailer']) : null;
+        json['trailer'] != null ? Trailer.fromJson(json['trailer']) : null;
     description = json['description'];
     status = json['status'];
     cover = json['cover'];
@@ -92,28 +92,28 @@ class PopularAnimeData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['malId'] = this.malId;
-    if (this.title != null) {
-      data['title'] = this.title!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['malId'] = malId;
+    if (title != null) {
+      data['title'] = title!.toJson();
     }
-    data['image'] = this.image;
-    data['imageHash'] = this.imageHash;
-    if (this.trailer != null) {
-      data['trailer'] = this.trailer!.toJson();
+    data['image'] = image;
+    data['imageHash'] = imageHash;
+    if (trailer != null) {
+      data['trailer'] = trailer!.toJson();
     }
-    data['description'] = this.description;
-    data['status'] = this.status;
-    data['cover'] = this.cover;
-    data['coverHash'] = this.coverHash;
-    data['rating'] = this.rating;
-    data['releaseDate'] = this.releaseDate;
-    data['color'] = this.color;
-    data['genres'] = this.genres;
-    data['totalEpisodes'] = this.totalEpisodes;
-    data['duration'] = this.duration;
-    data['type'] = this.type;
+    data['description'] = description;
+    data['status'] = status;
+    data['cover'] = cover;
+    data['coverHash'] = coverHash;
+    data['rating'] = rating;
+    data['releaseDate'] = releaseDate;
+    data['color'] = color;
+    data['genres'] = genres;
+    data['totalEpisodes'] = totalEpisodes;
+    data['duration'] = duration;
+    data['type'] = type;
     return data;
   }
 }
@@ -134,11 +134,11 @@ class Title {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['romaji'] = this.romaji;
-    data['english'] = this.english;
-    data['native'] = this.native;
-    data['userPreferred'] = this.userPreferred;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['romaji'] = romaji;
+    data['english'] = english;
+    data['native'] = native;
+    data['userPreferred'] = userPreferred;
     return data;
   }
 }
@@ -159,11 +159,11 @@ class Trailer {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['site'] = this.site;
-    data['thumbnail'] = this.thumbnail;
-    data['thumbnailHash'] = this.thumbnailHash;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['site'] = site;
+    data['thumbnail'] = thumbnail;
+    data['thumbnailHash'] = thumbnailHash;
     return data;
   }
 }

@@ -67,6 +67,7 @@ class RestServices {
     required String uri,
     required Method method,
     bool isTMDB = false,
+    bool isAV = false,
     Map<String, dynamic>? queryParameters,
     String? body,
     String? token,
@@ -80,10 +81,13 @@ class RestServices {
       final url = Uri.https(
         isTMDB
             ? ServiceConfiguration.moviesBaseUrl
+            : isAV
+            ? ServiceConfiguration.avBaseURL
             : ServiceConfiguration.baseUrl,
         uri,
         queryParameters,
       );
+      debugPrint('Full URL: ${url.toString()}');
 
       final response = await _request(
         uri: url,
