@@ -1,9 +1,6 @@
 import 'dart:convert';
 
 import 'package:anidex/app/core/utils/exports.dart';
-import 'package:anidex/app/core/utils/global_variables.dart';
-import 'package:anidex/app/core/utils/service_configuration.dart';
-import 'package:anidex/app/data/enums/service_enums.dart';
 import 'package:anidex/app/data/models/get_popular_anime_response_model.dart';
 import 'package:anidex/app/data/models/get_popular_av_vids_response_model.dart';
 import 'package:anidex/app/data/models/get_popular_celebs_response_model.dart';
@@ -16,7 +13,7 @@ import 'package:anidex/app/data/models/get_trending_anime_response_model.dart';
 import 'package:anidex/app/data/models/get_trending_celebs_response_model.dart';
 import 'package:anidex/app/data/models/get_trending_movies_response_model.dart';
 import 'package:anidex/app/data/models/get_trending_tv_shows_response_model.dart';
-import 'package:anidex/app/data/services/rest_services.dart';
+import 'package:flutter/material.dart';
 
 class HomeScreenController extends GetxController {
   RestServices restServices = RestServices();
@@ -68,23 +65,24 @@ class HomeScreenController extends GetxController {
   RxList<PopularAnimeData> popularAnimeDataList = <PopularAnimeData>[].obs;
   RxList<TrendingAnime> trendingAnimeDataList = <TrendingAnime>[].obs;
   // AV Vids List
-  RxList<AVVids> avVidsList = <AVVids>[].obs;
+  // RxList<AVVids> avVidsList = <AVVids>[].obs;
 
+  Rx<int> currentIndex = 0.obs;
   @override
   Future<void> onInit() async {
     sliderDataList.value = [];
-    // await getSliderData();
-    // await getPopularMovies();
-    // await getPopularTVShows();
-    // await getPopularCelebs();
-    // await getTrendingMovies();
-    // await getTrendingTVShows();
-    // await getTrendingCelebs();
-    // await getTopRatedMovies();
-    // await getTopRatedTVShows();
-    // await getPopularAnimes();
-    // await getTrendingAnimes();
-    await getPopularAV();
+    await getSliderData();
+    await getPopularMovies();
+    await getPopularTVShows();
+    await getPopularCelebs();
+    await getTrendingMovies();
+    await getTrendingTVShows();
+    await getTrendingCelebs();
+    await getTopRatedMovies();
+    await getTopRatedTVShows();
+    await getPopularAnimes();
+    await getTrendingAnimes();
+    // await getPopularAV();
     super.onInit();
   }
 
@@ -307,30 +305,66 @@ class HomeScreenController extends GetxController {
   }
 
   // Get Popular AV's
-  Future<void> getPopularAV() async {
-    await restServices
-        .getResponse(
-          isAV: true,
-          uri: ServiceConfiguration.searchAVVideos,
-          method: Method.get,
-          queryParameters: {
-            'query': 'all',
-            'order': 'most-popular',
-            'page': 1,
-            'per_page': 20,
-            'thumbsize': 'big',
-            'gay': 0,
-            'lq': 1,
-            'format': 'json',
+  // Future<void> getPopularAV() async {
+  //   await restServices
+  //       .getResponse(
+  //         isAV: true,
+  //         uri: ServiceConfiguration.searchAVVideos,
+  //         method: Method.get,
+  //         queryParameters: {
+  //           'query': 'all',
+  //           'order': 'most-popular',
+  //           'page': 1,
+  //           'per_page': 20,
+  //           'thumbsize': 'big',
+  //           'gay': 0,
+  //           'lq': 1,
+  //           'format': 'json',
+  //         },
+  //         // token: apiToken,
+  //       )
+  //       .then((response) {
+  //         if (response != '') {
+  //           getPopularAVVidsResponseModel.value =
+  //               GetPopularAVVidsResponseModel.fromJson(json.decode(response));
+  //           avVidsList.addAll(getPopularAVVidsResponseModel.value.avVids ?? []);
+  //         }
+  //       });
+  // }
+
+  /// Function to Show Shimmer Effect
+  Widget buildImageWithShimmer(String? imageUrl) {
+    return imageUrl != null && imageUrl.isNotEmpty
+        ? Image.network(
+          imageUrl,
+          width: Get.width,
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Shimmer.fromColors(
+              baseColor: Colors.grey[900]!,
+              highlightColor: Colors.grey[600]!,
+              child: Container(
+                width: Get.width,
+                height: Get.height * 0.5,
+                color: Colors.grey,
+              ),
+            );
           },
-          // token: apiToken,
+          errorBuilder: (context, error, stackTrace) {
+            return const Center(
+              child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
+            );
+          },
         )
-        .then((response) {
-          if (response != '') {
-            getPopularAVVidsResponseModel.value =
-                GetPopularAVVidsResponseModel.fromJson(json.decode(response));
-            avVidsList.addAll(getPopularAVVidsResponseModel.value.avVids ?? []);
-          }
-        });
+        : Shimmer.fromColors(
+          baseColor: Colors.grey[900]!,
+          highlightColor: Colors.grey[600]!,
+          child: Container(
+            width: Get.width,
+            height: Get.height * 0.5,
+            color: Colors.grey,
+          ),
+        );
   }
 }

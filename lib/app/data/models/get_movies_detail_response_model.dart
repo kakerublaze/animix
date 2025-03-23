@@ -1,7 +1,7 @@
-class GetMoviesDetailResponseModel {
+class GetMoviesDetailsReponseModel {
   bool? adult;
   String? backdropPath;
-  // Null? belongsToCollection;
+  BelongsToCollection? belongsToCollection;
   int? budget;
   List<Genres>? genres;
   String? homepage;
@@ -26,10 +26,10 @@ class GetMoviesDetailResponseModel {
   double? voteAverage;
   int? voteCount;
 
-  GetMoviesDetailResponseModel({
+  GetMoviesDetailsReponseModel({
     this.adult,
     this.backdropPath,
-    // this.belongsToCollection,
+    this.belongsToCollection,
     this.budget,
     this.genres,
     this.homepage,
@@ -55,10 +55,13 @@ class GetMoviesDetailResponseModel {
     this.voteCount,
   });
 
-  GetMoviesDetailResponseModel.fromJson(Map<String, dynamic> json) {
+  GetMoviesDetailsReponseModel.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
-    // belongsToCollection = json['belongs_to_collection'];
+    belongsToCollection =
+        json['belongs_to_collection'] != null
+            ? BelongsToCollection.fromJson(json['belongs_to_collection'])
+            : null;
     budget = json['budget'];
     if (json['genres'] != null) {
       genres = <Genres>[];
@@ -108,7 +111,9 @@ class GetMoviesDetailResponseModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['adult'] = adult;
     data['backdrop_path'] = backdropPath;
-    // data['belongs_to_collection'] = this.belongsToCollection;
+    if (belongsToCollection != null) {
+      data['belongs_to_collection'] = belongsToCollection!.toJson();
+    }
     data['budget'] = budget;
     if (genres != null) {
       data['genres'] = genres!.map((v) => v.toJson()).toList();
@@ -143,6 +148,31 @@ class GetMoviesDetailResponseModel {
     data['video'] = video;
     data['vote_average'] = voteAverage;
     data['vote_count'] = voteCount;
+    return data;
+  }
+}
+
+class BelongsToCollection {
+  int? id;
+  String? name;
+  String? posterPath;
+  String? backdropPath;
+
+  BelongsToCollection({this.id, this.name, this.posterPath, this.backdropPath});
+
+  BelongsToCollection.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    posterPath = json['poster_path'];
+    backdropPath = json['backdrop_path'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['poster_path'] = posterPath;
+    data['backdrop_path'] = backdropPath;
     return data;
   }
 }

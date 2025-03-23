@@ -1,6 +1,8 @@
 import 'package:anidex/app/core/utils/exports.dart';
 import 'package:anidex/app/modules/main_screen/main_screen.dart';
 import 'package:anidex/app/modules/main_screen/main_screen_binding.dart';
+import 'package:anidex/app/modules/movies_details_screen/movies_details_screen.dart';
+import 'package:anidex/app/modules/movies_details_screen/movies_details_screen_bindings.dart';
 import 'package:anidex/app/modules/splash_screen/splash_screen.dart';
 import 'package:anidex/app/modules/splash_screen/splash_screen_binding.dart';
 
@@ -19,6 +21,11 @@ class AppPages {
       name: Routes.mainScreen,
       page: () => const MainScreen(),
       binding: MainScreenBinding(),
+    ),
+    GetPage(
+      name: Routes.moviesDetails,
+      page: () => const MoviesDetailsScreen(),
+      binding: MoviesDetailsScreenBindings(),
     ),
   ];
 }
